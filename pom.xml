@@ -51,6 +51,11 @@
             <id>rosewood-repo</id>
             <url>https://repo.rosewooddev.io/repository/public/</url>
         </repository>
+
+        <repository>
+            <id>jitpack</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -58,6 +63,7 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.20.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -68,9 +74,9 @@
         </dependency>
 
         <dependency>
-            <groupId>su.nightexpress.nightcore</groupId>
-            <artifactId>main</artifactId>
-            <version>2.7.6.1</version>
+            <groupId>com.github.InfLabss</groupId>
+            <artifactId>nightcore-folia</artifactId>
+            <version>folia</version>
         </dependency>
 
         <dependency>
@@ -91,6 +97,14 @@
             <groupId>com.github.ItzSave</groupId>
             <artifactId>DeluxeCoinflipAPI</artifactId>
             <version>1.0.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.technicallycoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.4.4</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -115,6 +129,28 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.tcoded.folialib</pattern>
+                            <shadedPattern>su.nightexpress.coinsengine.lib.folialib</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 

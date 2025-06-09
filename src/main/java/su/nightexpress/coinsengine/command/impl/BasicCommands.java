@@ -56,7 +56,7 @@ public class BasicCommands {
 
         Currency currency = arguments.getArgument(CommandArguments.CURRENCY, Currency.class);
 
-        plugin.runTaskAsync(task -> {
+        plugin.getFoliaLib().getScheduler().runAsync(task -> {
             Lang.COMMAND_MIGRATE_START.getMessage().send(context.getSender(), replacer -> replacer.replace(Placeholders.GENERIC_NAME, migrationPlugin.getPluginName()));
             plugin.getMigrationManager().migrate(migrationPlugin, currency);
             Lang.COMMAND_MIGRATE_DONE.getMessage().send(context.getSender(), replacer -> replacer.replace(Placeholders.GENERIC_NAME, migrationPlugin.getPluginName()));
@@ -87,7 +87,7 @@ public class BasicCommands {
 
         Lang.COMMAND_WIPE_START.getMessage().send(context.getSender(), replacer -> replacer.replace(currency.replacePlaceholders()));
 
-        plugin.runTaskAsync(task -> {
+        plugin.getFoliaLib().getScheduler().runAsync(task -> {
             plugin.getData().resetBalances(currency);
             plugin.getUserManager().getLoaded().forEach(user -> user.resetBalance(currency));
             Lang.COMMAND_WIPE_FINISH.getMessage().send(context.getSender(), replacer -> replacer.replace(currency.replacePlaceholders()));

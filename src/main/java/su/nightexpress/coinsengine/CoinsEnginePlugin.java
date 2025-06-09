@@ -1,5 +1,6 @@
 package su.nightexpress.coinsengine;
 
+import com.tcoded.folialib.FoliaLib;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.coinsengine.api.CoinsEngineAPI;
 import su.nightexpress.coinsengine.command.impl.BasicCommands;
@@ -25,11 +26,16 @@ public class CoinsEnginePlugin extends NightPlugin implements ImprovedCommands {
     private MigrationManager migrationManager;
     private DataHandler      dataHandler;
     private UserManager      userManager;
+    private FoliaLib foliaLib;
 
     private CoinsLogger coinsLogger;
 
+
     @Override
     public void enable() {
+
+        foliaLib = new FoliaLib(this);
+
         CoinsEngineAPI.load(this);
 
         this.coinsLogger = new CoinsLogger(this);
@@ -52,7 +58,7 @@ public class CoinsEnginePlugin extends NightPlugin implements ImprovedCommands {
         }
 
         if (Plugins.isInstalled(HookId.DELUXE_COINFLIP)) {
-            this.runTask(task -> DeluxeCoinflipHook.setup(this));
+            foliaLib.getScheduler().runNextTick((task) -> DeluxeCoinflipHook.setup(this));
         }
     }
 
@@ -106,5 +112,9 @@ public class CoinsEnginePlugin extends NightPlugin implements ImprovedCommands {
     @NotNull
     public UserManager getUserManager() {
         return this.userManager;
+    }
+
+    public FoliaLib getFoliaLib() {
+        return foliaLib;
     }
 }

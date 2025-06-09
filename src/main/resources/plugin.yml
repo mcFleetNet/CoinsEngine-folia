@@ -3,6 +3,7 @@ version: '${project.version}'
 name: CoinsEngine
 author: NightExpress
 desciption: Unlimited virtual currencies with Vault Economy support!
+folia-supported: true
 depend: [ nightcore ]
 softdepend:
   - Vault
